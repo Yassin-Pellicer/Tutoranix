@@ -13,3 +13,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Tutor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  sessions  Booking[]
+}
+
+model Booking {
+  id        Int      @id @default(autoincrement())
+  tutor     Tutor    @relation(fields: [tutorId], references: [id])
+  tutorId   Int
+  student   String
+  date      DateTime
+}
